@@ -1,7 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+import uuid
 
 class Student(AbstractUser):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     email = models.EmailField(unique=True)
     is_banned = models.BooleanField(default=False)
     is_collaborator = models.BooleanField(null=True, default=False)

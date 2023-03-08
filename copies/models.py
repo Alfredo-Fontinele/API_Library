@@ -5,7 +5,7 @@ import uuid
 class Copy(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     qtd_books = models.PositiveIntegerField()
-    book = models.ForeignKey('books.Book', on_delete=models.CASCADE)
+    book = models.ForeignKey('books.Book', on_delete=models.PROTECT)
     student_borrowed = models.ManyToManyField(
         'students.Student',
         through='copies.Borrow',
