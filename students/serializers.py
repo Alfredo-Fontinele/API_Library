@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator, ValidationError
 
 
-from .models import Student
+from .models import Student, Following
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -55,3 +55,20 @@ class StudentSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["is_banned", "is_collaborator"]
         extra_kwargs = {"password": {"write_only": True}}
+
+class FollowingSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    student = StudentSerializer(read_only=True)
+
+
+    def create(self, validated_data):
+        return Following.objects.create(**validated_data)
+    
+    
+    class Meta:
+        model = Following
+        fields = ["id","student", "book"]
+        read_only_fields = ["student", "book",]
+        validators = []
+
+    
