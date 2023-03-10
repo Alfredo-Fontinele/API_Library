@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Book
+from rest_framework.validators import UniqueValidator
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
