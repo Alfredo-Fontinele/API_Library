@@ -10,12 +10,12 @@ class Copy(models.Model):
     student_borrowed = models.ManyToManyField(
         "students.Student", through="copies.Borrow", related_name="copies_borrowed"
     )
+    is_avaliable = models.BooleanField(default=True)
 
 
 class Borrow(models.Model):
     student = models.ForeignKey("students.Student", on_delete=models.CASCADE)
     copy = models.ForeignKey("copies.Copy", on_delete=models.CASCADE)
     borrowed_at = models.DateField(auto_now_add=True)
-    return_date = models.DateField(
-        default=datetime.date.today() + datetime.timedelta(days=5)
-    )
+    return_date = models.DateField(auto_now_add=True)
+    qtd_borrowed = models.PositiveIntegerField()
