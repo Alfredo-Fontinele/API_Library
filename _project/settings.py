@@ -29,7 +29,8 @@ MY_APPS = [
 ]
 
 THIRD_APPS = [
-    'rest_framework'
+    'rest_framework',
+    'drf_spectacular'
 ]
 
 DJANGO_APPS = [
@@ -46,6 +47,14 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + MY_APPS
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 4,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API Library',
+    'DESCRIPTION': 'API for library services',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 SIMPLE_JWT = {
