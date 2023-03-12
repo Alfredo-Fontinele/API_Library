@@ -8,7 +8,8 @@ from .serializers import StudentSerializer, FollowingSerializer
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsStudent, IsTheSameStudent
 from rest_framework.validators import ValidationError
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 class StudentView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
@@ -35,7 +36,13 @@ class FollowingView(generics.ListCreateAPIView):
         if Following.objects.filter(book=book, student=self.request.user):
             raise ValidationError({"message": f"You Already Follow {book.title}"})
 
-        return serializer.save(student=self.request.user, book=book)
+        following = serializer.save(student=self.request.user, book=book)
+        subject = f'Você está agora es´ta seguindo {book.title}'
+        message = f"Olá {self.request.user.username}, você agora está seguindo {book.title}. Obrigado pelo seu interesse!"
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [self.request.user.email]
+        send_mail(subject, message, from_email, recipient_list)
+        return following
 
 
 class FollowingDetailView(generics.DestroyAPIView):
