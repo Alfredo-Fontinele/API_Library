@@ -70,5 +70,4 @@ class FollowingSerializer(serializers.ModelSerializer):
         fields = ["id","student", "book"]
         read_only_fields = ["student", "book",]
         validators = []
-
     
