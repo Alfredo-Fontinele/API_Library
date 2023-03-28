@@ -17,4 +17,4 @@ Projeto de uma API Rest para serviços de livraria.
 
 ## Documentação 📄
 
-Para acessar a documentação da API, acesse `http://localhost:{PORTA definida no arquivo .env}/api/docs/redoc/` 📑.
+Para acessar a documentação da API, acesse `http://{PGHOST}:{PGPORT}/api/docs/redoc/` 📑.
